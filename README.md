@@ -4,7 +4,6 @@
 ## AIM :
 To write a PYTHON program for socket for HTTP for web page upload and download
 ## Algorithm
-
 1.Start the program.
 <BR>
 2.Get the frame size from the user
@@ -20,14 +19,12 @@ To write a PYTHON program for socket for HTTP for web page upload and download
 ## Program :
 ```
 import socket
-
 def send_request(host, port, request):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((host, port))
         s.sendall(request.encode())
         response = s.recv(4096).decode()
     return response
-
 def upload_file(host, port, filename):
     with open(filename, 'rb') as file:
         file_data = file.read()
@@ -36,7 +33,6 @@ def upload_file(host, port, filename):
         request += file_data.decode()
         response = send_request(host, port, request)
     return response
-
 def download_file(host, port, filename):
     request = f"GET /{filename} HTTP/1.1\r\nHost: {host}\r\n\r\n"
     response = send_request(host, port, request)
@@ -44,22 +40,17 @@ def download_file(host, port, filename):
     file_content = response.split('\r\n\r\n', 1)[1]
     with open(filename, 'wb') as file:
         file.write(file_content.encode())
-
 if __name__ == "__main__":
     host = 'example.com'
     port = 80
-
     # Upload file
     upload_response = upload_file(host, port, 'example.txt')
     print("Upload response:", upload_response)
-
     # Download file
     download_file(host, port, 'example.txt')
     print("File downloaded successfully.")
-
 ```
 ## OUTPUT:
 ![378386050-8e92d5e4-3af6-4113-951d-b67b58f896da](https://github.com/user-attachments/assets/fcba83bf-50a6-45ee-aeb6-a90b8350de23)
-
 ## Result
 Thus the socket for HTTP for web page upload and download created and Executed.
